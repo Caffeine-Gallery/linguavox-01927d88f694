@@ -49,9 +49,23 @@ async function updateTranslationHistory() {
     historyList.innerHTML = '';
     history.forEach(item => {
         const li = document.createElement('li');
-        li.textContent = `${item.original} -> ${item.translated} (${item.language})`;
+        li.innerHTML = `
+            <strong>${item.original}</strong>
+            <i class="fas fa-arrow-right"></i>
+            <em>${item.translated}</em>
+            <span class="language-tag">${getLanguageName(item.language)}</span>
+        `;
         historyList.appendChild(li);
     });
+}
+
+function getLanguageName(code) {
+    const languages = {
+        'de': 'German',
+        'fr': 'French',
+        'es': 'Spanish'
+    };
+    return languages[code] || code;
 }
 
 function speakTranslation() {
